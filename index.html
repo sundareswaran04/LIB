@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title >Library Portal</title>
+  <link rel="icon" href="/531152.png">
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Start Header -->
+  <div class="navbar bg-primary  navbar-dark navbar-expand-lg" data-bs-theme="white">
+    <div class="container">
+
+      <h3 class="navbar-brand text-white" onclick="Home()" style="cursor:pointer;"><img src="R.png" alt="logo" style="width:50px;height:50px;margin-right:10px;">Library Portal</h3>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-bar"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon "></span>
+      </button>
+      <form action="/search" method="post" id="searchForm">
+        <div class="collapse navbar-collapse justify-content-end" id="nav-bar">
+          <input class=" me-2  " type="search" placeholder="Search" required aria-label="Search" id="Search_bar"
+            style="text-align:center;padding:5px;border-radius:5px;border:none;" name="search_value">
+          <button class="btn btn-secondary" type="submit" onclick="search()">Search</button>
+          <select name="filter" class="btn mx-3  my-3 btn btn-success" id="filter">
+            <option value="1">Student</option>
+            <option value="2">Book</option>
+          </select>
+      </form>
+      <div class="dropdown mx-4 my-3">
+        <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Action
+        </button>
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="#" class="dropdown-item" onclick="entry_form()">Entry</a>
+          </li>
+          <li> <a href="#" class="dropdown-item" onclick="return_form()">Return</a></li>
+          <li> <a href="#" class="dropdown-item" onclick="add_student_form()">Add Student</a></li>
+          <li> <a href="#" class="dropdown-item" onclick="add_book_form()">Add Book</a></li>
+          <li> <a href="#" class="dropdown-item" onclick="change_password()">Change Password</a></li>
+          
+          <li> <a href="#" class="dropdown-item" onclick="Book_holder()">Book Holder</a></li>
+        </ul>
+      </div>
+      <div class="dropdown my-3">
+        <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Database
+        </button>
+
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#" onclick="taken_data()">Taken</a></li>
+          <li><a class="dropdown-item" href="#" onclick="return_data()">Returned</a></li>
+          <li><a class="dropdown-item" href="#" onclick="pending_data()">Pending</a></li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  </div>
+  <!-- End Header -->
+
+  <!-- main content -->
+  <div class="container mt-4">
+
+    <!-- popup -->
+    <div class="container-fluid" id="popup">
+      <form id="Userform" method="post" action="/User">
+        <div class="input-group mb-3" style="width:400px;max-width:100%;">
+          <span class="input-group-text">Password</span>
+          <input type="password" class="form-control col-lg-3" placeholder="Enter Password" required name="Password"
+            id="pass_field">
+          <button class="btn btn-success" type="submit">Enter</button>
+          <DIV class="btn btn-danger" onclick="Close()">Close</DIV>
+        </div>
+
+      </form>
+    </div>
+    <div class="container-fluid" id="popup-pass" >
+      <form id="User-pass" method="post" action="/User_pass">
+        <div class="input-group mb-3" style="width:400px;max-width:100%;">
+          <span class="input-group-text">Password</span>
+          <input type="password" class="form-control col-lg-3" placeholder="Enter Password" required
+            name="Password-User" id="passWord_User">
+          <button class="btn btn-success" type="submit">Enter</button>
+          <DIV class="btn btn-danger" onclick="Close()">Close</DIV>
+        </div>
+
+      </form>
+    </div>
+    <!-- Entry Content -->
+    <div class="container" id="entry">
+
+      <form class="row g-3" method="post" action="/entry" id="entry_form" autocomplete="off">
+        <h4>Entry form</h4>
+        <div class="col-md-6" a>
+
+          <label for="rollno" class="form-label">Student Id</label>
+          <input type="text" class="form-control" id="Student_id" name="rollno_entry" required placeholder="21EC...">
+        </div>
+
+        <div class="col-6">
+          <label for="id" class="form-label">Book Id</label>
+          <input type="text" class="form-control" id="Book_id" placeholder="SD12029" required name="bookid_entry">
+        </div>
+
+        <div class="col-12 ">
+          <button type="submit" class="btn btn-primary">Entry</button>
+        </div>
+        <div class="col-12">
+          <h6 class="text-danger">Please Check the Details Before You Entered!</h6>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- Return Content -->
+  <div class="container" id="return">
+    <form class="row g-3" method="post" action="/return" id="ReturnForm" autocomplete="off">
+      <h4>Return form</h4>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Student Id</label>
+        <input type="text" class="form-control" id="Student_id_return" name="rollno_return" placeholder="21EC...">
+      </div>
+      <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Book Id</label>
+        <input type="text" class="form-control" id="Book_id_return" name="bookid_return" placeholder="DL190">
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Return</button>
+      </div>
+      <div class="col-12">
+        <h6 class="text-danger">Please Check the Details Before You Entered!</h6>
+      </div>
+    </form>
+
+  </div>
+  <!-- Add student -->
+  <div class="container " id="add_student">
+    <h1 class="text-center ">Upload CSV File</h1>
+    <div class="row justify-content-center">
+        <div class="col-md">
+            <form id="upload_form" class="border p-4 rounded shadow">
+                <div class="form-group">
+                    <label for="csvfile">Choose CSV File</label>
+                    <input type="file" class="form-control-file" id="csvfile" name="csvfile" accept=".csv" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Upload</button>
+            </form>
+            <div id="status" class="mt-3"></div>
+        </div>
+    </div>
+</div>
+
+  </div>
+  <!-- Add book -->
+  <div class="container" id="add_book" >
+    <form class="row g-3" method="post" action="/add_book" id="add_book" autocomplete="off">
+      <h4>Add Book</h4>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Book Id</label>
+        <input type="text" class="form-control" id="Book_id_add" name="book_id" placeholder="DL908">
+      </div>
+      <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Book Name</label>
+        <input type="text" class="form-control" id="Book_name_add" name="book_name"
+          placeholder="ELECTRONICS CIRCUITS -I">
+      </div>
+      <div class="col-md-3">
+        <label for="inputPassword4" class="form-label">Author Name</label>
+        <input type="text" class="form-control" name="authorname" placeholder="">
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Add Book</button>
+      </div>
+      <div class="col-12">
+        <h6 class="text-danger">Please Check the Details Before You Entered!</h6>
+      </div>
+      <div class="col-12">
+        <div  onclick="GenrateId()" class="btn btn-dark">Book ID</div>
+      </div>
+      </form>
+  </div>
+
+
+  <div class="container mt-4">
+
+    <!-- popup -->
+    <div class="container-fluid" id="popup">
+      <form id="Userform" method="post" action="/User" autocomplete="off">
+        <div class="input-group mb-3" style="width:400px;max-width:100%;">
+          <span class="input-group-text">Password</span>
+          <input type="password" class="form-control col-lg-3" placeholder="Enter Password" required name="Password"
+            id="pass_field">
+          <button class="btn btn-success" type="submit">Enter</button>
+          <DIV class="btn btn-danger" onclick="Close()">Close</DIV>
+        </div>
+
+      </form>
+    </div>
+    <div class="container-fluid" id="popup-pass" >
+      <form id="User-pass" method="post" action="/User_pass" autocomplete="off">
+        <div class="input-group mb-3" style="width:400px;max-width:100%;">
+          <span class="input-group-text">Password</span>
+          <input type="password" class="form-control col-lg-3" placeholder="Enter Password" required
+            name="Password-User" id="passWord_User">
+          <button class="btn btn-success" type="submit">Enter</button>
+          <DIV class="btn btn-danger" onclick="Close()">Close</DIV>
+        </div>
+
+      </form>
+    </div>
+    <!-- Entry Content -->
+    <div class="container" id="change_password">
+
+      <form class="row g-3"  id="password_change_form" autocomplete="off">
+        <h4>Change Password</h4>
+        <div class="col-md-6" a>
+
+          <label for="rollno" class="form-label">Student Id</label>
+          <input type="text" class="form-control" id="Student_id_pass" name="rollno_entry" required placeholder="">
+        </div>
+
+        <div class="col-6">
+          <label for="id" class="form-label">Old Password</label>
+          <input type="password" class="form-control" id="old_pass" placeholder="" required name="bookid_entry">
+        </div>
+
+        <div class="col-6">
+          <label for="id" class="form-label">New Password</label>
+          <input type="password" class="form-control" id="new_pass" placeholder="" required name="bookid_entry">
+        </div>
+
+        <div class="col-12 ">
+          <button type="submit" class="btn btn-success">Update</button>
+        </div>
+        
+        <div class="col-12">
+          <h6 class="text-danger">Please Check the Details Before You Entered!</h6>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="container" id="results">
+
+  </div>
+  <!--  Database -->
+  <div class="container-fluid" id="database">
+    <table class="table table-bordered table-striped ">
+      <thead>
+        <tr>
+          <th>Rollno</th>
+          <th>Name</th>
+          <th>BookId</th>
+          <th>BookName</th>
+          <th>AuthorName</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+
+      </thead>
+      <tbody id="table">
+
+      </tbody>
+    </table>
+
+
+  </div>
+  <div class="container-fluid" id="database-pending">
+    <table class="table table-bordered table-striped ">
+      <thead>
+        <tr>
+          <th>Rollno</th>
+          <th>Name</th>
+          <th>BookId</th>
+          <th>BookName</th>
+          <th>AuthorName</th>
+
+          <th>Date</th>
+        </tr>
+
+      </thead>
+      <tbody id="table-pending">
+
+      </tbody>
+    </table>
+
+
+  </div>
+
+  <div class="container-fluid" id="database-search">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Rollno</th>
+          <th>Name</th>
+          <th>Details</th>
+          <th>Pending</th>
+          <th>Remove</th>
+        </tr>
+
+      </thead>
+      <tbody id="table-search">
+
+      </tbody>
+    </table>
+
+
+  </div>
+
+
+  <div class="container" id="Book-search">
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>BookId</th>
+          <th>BookName</th>
+          <th>AuthorName</th>
+          <th>Available</th>
+        </tr>
+
+      </thead>
+      <tbody id="book-search">
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+  </div>
+  <div class="container" id="personal_info">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Rollno</th>
+          <th>Name</th>
+          <th>BookId</th>
+          <th>BookName</th>
+          <th>AuthorName</th>
+          <th>State</th>
+          <th>Date</th>
+
+        </tr>
+
+      </thead>
+      <tbody id="content_for_student_data">
+
+      </tbody>
+    </table>
+
+
+  </div>
+  <!-- Search results -->
+  <div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+    <div class="toast-header">
+      <strong class="mr-auto">Success</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body" id="toastBody">
+      Student added successfully.
+    </div>
+  </div>
+
+
+
+  <script src="script.js"></script>
+  <script>
+// Event listener for the main entry form
+document.getElementById('entry_form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent default form submission
+  
+  // Show the password entry popup
+  document.getElementById("popup-pass").style.display = "flex";
+});
+
+// Event listener for the password entry form
+document.getElementById('User-pass').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent default form submission
+  
+  const rollno = document.getElementById("Student_id").value;
+  const bookid = document.getElementById("Book_id").value;
+  const password = document.getElementById("passWord_User").value;
+  console.log(rollno,bookid,password);
+  // Validate user password first
+  fetch('/User_pass', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ rollno: rollno, PassWord: password })
+  })
+  .then(response => response.json())
+  .then(valid => {
+    if (valid) {
+      // If password is valid, proceed to borrow the book
+      fetch('/entry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ rollno: rollno, bookid: bookid })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the server
+        document.getElementById("popup-pass").style.display = "NONE";
+        document.getElementById("Student_id").value= "";
+        document.getElementById("Book_id").value="";
+
+        window.alert(data); // Show alert message from the server
+        // Reset form or handle further actions as needed
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Handle fetch error
+      });
+    } else {
+      // If password is invalid
+      document.getElementById("passWord_User").value="";
+      window.alert("Password or Rollno is Incorrect");
+      // Optionally clear form inputs or take other actions
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // Handle fetch error
+  });
+});
+
+function Home(){
+    window.location.reload(true);
+  }
+  </script>
+  </script>
+
+</body>
+
+</html>
